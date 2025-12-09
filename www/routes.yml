@@ -1,0 +1,63 @@
+/:
+  controller: Base
+  action: index
+
+/mon-portfolio:
+  controller: Base
+  action: portfolio
+
+/contact:
+  controller: Base
+  action: contact
+
+/SAV:
+  controller: Base
+  action: contact
+
+/loginForm:
+  controller: Auth
+  action: show_login
+
+/login:
+  controller: Auth
+  action: login
+
+/logout:
+  controller: Auth
+  action: logout
+
+/forgetPassword:
+  controller: Auth
+  action: forgetPassword
+
+/resetPassword:
+  controller: Auth
+  action: resetPassword
+
+/activation:
+  controller: Auth
+  action: linkResetPassword
+
+/updatePassword:
+  controller: Auth
+  action: updatePassword
+
+/createPageForm:
+  controller: PageController
+  action: createForm
+
+/createPage:
+  controller: PageController
+  action: createPage
+
+/showPages:
+  controller: PageController
+  action: showPages
+
+/page/delete:
+  controller: PageController
+  action: delete
+
+/page/edit:
+  controller: PageController
+  action: edit
