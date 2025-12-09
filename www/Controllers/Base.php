@@ -3,27 +3,25 @@
 namespace App\Controller;
 
 use App\Core\Render;
-use App\Helper\Errors;
 
 class Base
 {
-    public function index(array $data = []): void
+    public function index(): void
     {
         $render = new Render("home", "frontoffice");
-
-        // Toujours définir "name", même si aucun username n'est fourni
-        $render->assign("name", $data['username'] ?? '');
-
+        $render->assign("name", $_SESSION['username'] ?? '');
         $render->render();
     }
 
     public function contact(): void
     {
-        new Render("contact");
+        $render = new Render("contact", "frontoffice");
+        $render->render();
     }
 
     public function portfolio(): void
     {
-        new Render("portfolio");
+        $render = new Render("portfolio", "frontoffice");
+        $render->render();
     }
 }

@@ -1,12 +1,18 @@
-<form action="/login" method="POST">
-    <input type="hidden" name="action" value="login">
-    <label for="">Username</label>
-    <input type="text" name="username">
-    <label for="">Password</label>
-    <input type="password" name="pwd">
-    <label for="">Password confirm</label>
-    <input type="password" name="pwdConfirm">
-    <label for="">Email</label>
-    <input type="email" name="email">
-    <input type="submit" value="">
+<h1>Connexion</h1>
+
+<?php if (!empty($error)): ?>
+    <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+<?php endif; ?>
+
+<form action="/login" method="POST" class="form">
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Mot de passe</label>
+    <input type="password" name="pwd" required>
+
+    <button type="submit" class="btn">Se connecter</button>
 </form>
+
+<p><a href="/registerForm">Créer un compte</a></p>
+<p><a href="/forgetPassword">Mot de passe oublié ?</a></p>

@@ -49,11 +49,12 @@ class PageController
             die("Page non publiée");
         }
         
-        $render = new Render("page/show", "frontoffice");
+        $render = new Render("page", "frontoffice");
         $render->assign("page", $page);
         $render->assign("title", $page->getTitle());
         $render->assign("description", $page->getDescription());
         $render->render();
+
     }
 
     public function edit(){
