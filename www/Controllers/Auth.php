@@ -55,24 +55,25 @@ class Auth
     public function register(): void
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            if (
+            if ( // verifie qu'il n'est pas vide
                 !empty($_POST['username']) &&
                 !empty($_POST['email']) &&
                 !empty($_POST['pwd']) &&
                 !empty($_POST['pwdConfirm'])
             ) {
-
+                //recup données 
                 $username        = trim($_POST['username']);
                 $email           = strtolower(trim($_POST['email']));
                 $password        = $_POST['pwd'];
                 $passwordConfirm = $_POST['pwdConfirm'];
 
                 $errors = [];
-
+                
+                //validite mail
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $errors[] = "Email invalide";
                 }
-
+                //validité mdp
                 if (
                     strlen($password) < 8 ||
                     !preg_match('/[a-z]/', $password) ||
@@ -85,13 +86,13 @@ class Auth
                 if ($password !== $passwordConfirm) {
                     $errors[] = "Les mots de passe ne correspondent pas";
                 }
-
+                //cas d'un mail déja existant
                 $userModel = new User();
                 $existing  = $userModel->getOneBy(['email' => $email]);
                 if ($existing) {
                     $errors[] = "Un compte existe déjà avec cet email";
                 }
-
+                //on ajt l'erreur dans le render et on le renvoie pr afficher la vue 
                 if (!empty($errors)) {
                     $render = new Render("register", "backoffice");
                     $render->assign("errors", $errors);
@@ -110,7 +111,7 @@ class Auth
                     $phpmailer->SMTPAuth = false;
                     $phpmailer->Port     = 1025;
 
-                    $phpmailer->setFrom('no-reply@example.com', 'Mini CMS');
+                    $phpmailer->setFrom('', 'Mini CMS');
                     $phpmailer->addAddress($email, $username);
 
                     $phpmailer->isHTML(true);
@@ -132,9 +133,9 @@ class Auth
         exit;
     }
 
-    public function logout(): void
+    public function logout(): void //deconnexion
     {
-        $_SESSION = [];
+        $_SESSION = []; 
         session_destroy();
         header('Location: /loginForm');
         exit;
@@ -146,10 +147,10 @@ class Auth
         $render->render();
     }
 
-    public function resetPassword(): void
+    public function resetPassword(): void // mot de passe 
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            if (!empty($_POST['email'])) {
+            if (!empty($_POST['email'])) { 
 
                 $email = strtolower(trim($_POST['email']));
 
@@ -177,7 +178,7 @@ class Auth
                         $phpmailer->SMTPAuth = false;
                         $phpmailer->Port     = 1025;
 
-                        $phpmailer->setFrom('no-reply@example.com', 'Mini CMS');
+                        $phpmailer->setFrom('', 'Mini CMS');
                         $phpmailer->addAddress($email);
 
                         $phpmailer->isHTML(true);
@@ -202,7 +203,7 @@ class Auth
         exit;
     }
 
-    public function linkResetPassword(): void
+    public function linkResetPassword(): void //refaire le mot de passe verification du mail
     {
         if (isset($_GET["email"]) && isset($_GET["token"])) {
             $email = $_GET["email"];
@@ -223,7 +224,7 @@ class Auth
         exit;
     }
 
-    public function updatePassword(): void
+    public function updatePassword(): void //refaire le mdp ajt du nv mdp
     {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if (!empty($_POST["email"]) && !empty($_POST["pwd"]) && !empty($_POST["pwdConfirm"])) {
