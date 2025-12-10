@@ -14,7 +14,7 @@ class PageController
         $render = new Render("createPage", "backoffice");
         $render->render();
     }
-
+    //creation d'une nvl page
     public function createPage(): void{
         $page = new Page();
         $data = [
@@ -31,7 +31,7 @@ class PageController
         $page->insert($data);
         $this->showPages();
     }
-
+    //affichage des pages
     public function showPages():void {
         $page = new Page();
         $pages = $page->findAll();
@@ -39,10 +39,10 @@ class PageController
         $render->assign("pages",$pages);
         $render->render();
     }
-
+    //affichage d'une page avec son slug
     public function show(string $slug): void {
         $pageModel = new Page();
-        $page = $pageModel->findBySlug($slug);
+        $page = $pageModel->findBySlug($slug); //cherche la page par son slug
         
         if(!$page){
             http_response_code(404);
@@ -57,7 +57,7 @@ class PageController
 
     }
 
-    public function edit(){
+    public function edit(){ //editer une page
         if (empty($_GET['id'])) {
             die("ID manquant");
         }
@@ -65,7 +65,7 @@ class PageController
         $id = (int) $_GET['id'];
 
         $pageModel = new Page();
-        $page = $pageModel->getOneBy(["id" => $id]);
+        $page = $pageModel->getOneBy(["id" => $id]); //recup de la page par l'id
 
         if (!$page) {
             http_response_code(404);
