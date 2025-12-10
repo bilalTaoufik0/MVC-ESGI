@@ -1,4 +1,4 @@
-<h1>Inscription</h1>
+<h1>Réinitialiser le mot de passe</h1>
 
 <?php if (!empty($errors)): ?>
     <ul style="color:red;">
@@ -8,20 +8,14 @@
     </ul>
 <?php endif; ?>
 
-<form action="/register" method="POST" class="form">
-    <label>Pseudo</label>
-    <input type="text" name="username" required>
-
-    <label>Email</label>
-    <input type="email" name="email" required>
-
-    <label>Mot de passe</label>
+<form action="/updatePassword" method="POST" class="form">
+    <label>Nouveau mot de passe</label>
     <input type="password" name="pwd" required>
 
     <label>Confirmer le mot de passe</label>
     <input type="password" name="pwdConfirm" required>
 
-    <button type="submit" class="btn">Créer mon compte</button>
-</form>
+    <input type="hidden" name="email" value="<?= htmlspecialchars($email) ?>">
 
-<p><a href="/loginForm">Retour à la connexion</a></p>
+    <button type="submit" class="btn">Mettre à jour</button>
+</form>

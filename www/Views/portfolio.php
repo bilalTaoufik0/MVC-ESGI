@@ -1,2 +1,2 @@
 <h2>Mon portfolio</h2>
-<p>Ici tu peux mettre des projets, etc.</p>
+<p>Bienvenue sur ma page portfolio. Voici quelques-uns de mes travaux récents :</p>

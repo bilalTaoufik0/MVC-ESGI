@@ -5,5 +5,5 @@
     <input type="text" name="description">
     <label for="">Slug</label>
     <input type="text" name="slug">
-    <input type="submit" value="">
+    <input type="submit" value="enregistrer">
 </form>
