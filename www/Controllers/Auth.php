@@ -7,40 +7,40 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 class Auth
-{
+{   //afficher connexion
     public function show_login(): void
     {
         $render = new Render("login", "backoffice");
         $render->render();
     }
-
+    //aficher inscription
     public function show_register(): void
     {
         $render = new Render("register", "backoffice");
         $render->render();
     }
-
+    //traitement de la connexion
     public function login(): void
-    {
+    {   //On vérifie que la méthode est POST
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            if (!empty($_POST['email']) && !empty($_POST['pwd'])) {
-
+            if (!empty($_POST['email']) && !empty($_POST['pwd'])) { //pas vide
+                //recup des données 
                 $email = strtolower(trim($_POST['email']));
                 $password = $_POST['pwd'];
 
                 $userModel = new User();
                 $user = $userModel->getOneBy(['email' => $email]);
-
+                //verif
                 if ($user && password_verify($password, $user['password'])) {
-                    $_SESSION = [
+                    $_SESSION = [ //creation de la session
                         'id'       => $user['id'],
                         'username' => $user['username'],
                         'email'    => $user['email'],
                     ];
-                    header('Location: /');
+                    header('Location: /'); 
                     exit;
                 }
-
+                // en cas d'erreur
                 $render = new Render("login", "backoffice");
                 $render->assign("error", "Identifiants incorrects");
                 $render->render();
